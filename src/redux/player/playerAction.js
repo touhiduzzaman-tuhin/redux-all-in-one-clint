@@ -1,4 +1,5 @@
-import { ADD_PLAYER, CREATE_PLAYER, DELETE_PLAYER, FETCH_PLAYER_SUCCESS, REMOVE_PLAYER } from "./playerType"
+import axios from "axios"
+import { ADD_PLAYER, CREATE_PLAYER, DELETE_PLAYER, FETCH_READ_PLAYER_SUCCESS, REMOVE_PLAYER } from "./playerType"
 
 export const createPlayer = (player) => {
     return {
@@ -28,19 +29,38 @@ export const removePlayer = (id) => {
     }
 }
 
-export const fetchPlayerSuccess = (player) => {
+export const fetchReadPlayerSuccess = (player) => {
     return {
-        type : FETCH_PLAYER_SUCCESS,
+        type : FETCH_READ_PLAYER_SUCCESS,
         payload : player
     }
 }
 
-export const fetchPlayer = () => {
+export const fetchReadPlayer = () => {
     return (dispatch) => {
-        fetch('http://localhost:5000/addPlayer', {
-            method : 'POST',
-            headers : {'Content-Type' : 'application/json'},
-            body : JSON.stringify()
+        axios.get('http://localhost:5000/players')
+        .then(response => {
+            const players = response.data;
+            dispatch(fetchReadPlayerSuccess(players))
+        })
+        .catch(error => {
+            const errorMessage = error.message;
+            console.log(errorMessage);
+        })
+    }
+}
+
+export const fetchDeletePlayer = (_id) => {
+    return (dispatch) => {
+        return axios.delete(`http://localhost:5000/playerDelete/${_id}`)
+        .then(response => {
+            const data = response.data;
+            console.log(data);
+            // dispatch(deletePlayer())
+        })
+        .catch(error => {
+            const errorMessage = error.message;
+            console.log(errorMessage);
         })
     }
 }

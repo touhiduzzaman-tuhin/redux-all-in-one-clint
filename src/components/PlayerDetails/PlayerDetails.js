@@ -3,12 +3,18 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './PlayerDetails.css';
 
-const PlayerDetails = ({ player, addPlayer, deletePlayer}) => {
-    const { name, role, country, id } = player;
+const PlayerDetails = ({ player, addPlayer, deletePlayer, fetchDeletePlayer}) => {
+    const { name, role, country, id, _id } = player;
+    
+    const handleDelete = (id, _id) => {
+        deletePlayer(id);
+        fetchDeletePlayer(_id);
+    }
+
     return (
         <div className='col-md-4'>
             <div className="player-area">
-                <Link to={`/singlePlayer/${id}`}>
+                <Link to={`/singlePlayer/${_id}`}>
                     <p>Player Name : {name}</p>
                 </Link>
                 <p>Role : {role}</p>
@@ -17,7 +23,10 @@ const PlayerDetails = ({ player, addPlayer, deletePlayer}) => {
                     Add
                 </Button>
                 &nbsp; &nbsp;
-                <Button variant='danger' onClick={() => deletePlayer(id)}>
+                {/* <Button variant='danger' onClick={() => deletePlayer(id)}>
+                    Delete
+                </Button> */}
+                <Button variant='danger' onClick={() => handleDelete(id, _id)}>
                     Delete
                 </Button>
             </div>

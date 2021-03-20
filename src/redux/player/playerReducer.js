@@ -1,8 +1,8 @@
-import playerData from "../../fakeData/playerData"
-import { ADD_PLAYER, CREATE_PLAYER, DELETE_PLAYER, REMOVE_PLAYER } from "./playerType"
+// import playerData from "../../fakeData/playerData"
+import { ADD_PLAYER, CREATE_PLAYER, DELETE_PLAYER, FETCH_READ_PLAYER_SUCCESS, REMOVE_PLAYER } from "./playerType"
 
 const initialState = {
-    players : playerData,
+    players : [],
     playerCart : []
 }
 
@@ -51,6 +51,12 @@ export const playerReducer = (state = initialState, action) => {
             return {
                 ...state,
                 playerCart : remainingPlayerInformation
+            }
+        
+        case FETCH_READ_PLAYER_SUCCESS:
+            return {
+                ...state,
+                players : action.payload
             }
 
         default:
