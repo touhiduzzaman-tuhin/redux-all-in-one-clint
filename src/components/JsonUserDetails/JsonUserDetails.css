@@ -1,0 +1,17 @@
+.json-user-details-area{
+    border: 1px solid lightgray;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 10px 10px 40px gray;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.name-link{
+    cursor: pointer;
+    color: blue;
+}
+.name-link:hover{
+    text-decoration: underline;
+}
